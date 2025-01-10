@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { FieldsetModule } from 'primeng/fieldset';
 import { PanelModule } from 'primeng/panel';
+import { interval, tap } from 'rxjs';
 
 @Component({
   selector: 'app-uncommon-page',
@@ -50,5 +51,18 @@ export class UncommonPageComponent {
     age: 36,
     address: 'Madrid, España'
   }
+
+  // Async Pipe
+  public myObservableTimer = interval(2000).pipe(
+    tap( value => console.log('tap:', value ) )
+  );
+
+  public promiseValue: Promise<string> = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve( 'Tenemos datos en la promesa' );
+      console.log( 'Tenemos datos en la promesa' );
+      this.person.name = 'Otro nombre';
+    }, 3500);
+    })
 
 }
